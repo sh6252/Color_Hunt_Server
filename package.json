@@ -1,0 +1,16 @@
+{
+  "name": "color_hunt_server",
+  "version": "1.0.0",
+  "description": "the server of the color hunt project",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:covarage":"npm run test -- --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "//gurfs/Users/Tichnut/תכנות ו תשפה/קבוצה ו-2/Shifi Lemberger/NODE/color_hunt/server/.git/"
+  },
+  "author": "shifi",
+  "license": "MIT"
+}

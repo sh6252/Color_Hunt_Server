@@ -1,0 +1,7 @@
+#develop
+/node_modules
+
+.env
+
+#test
+/coveage
