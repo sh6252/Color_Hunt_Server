@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:covarage":"npm run test -- --coverage"
+    "test:covarage": "npm run test -- --coverage"
   },
   "repository": {
     "type": "git",
     "url": "//gurfs/Users/Tichnut/תכנות ו תשפה/קבוצה ו-2/Shifi Lemberger/NODE/color_hunt/server/.git/"
   },
   "author": "shifi",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
 }
