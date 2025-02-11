@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 const fs = require('fs')
 const path = require('path')
+=======
+const fs=require('fs')
+const path=require('path')
+>>>>>>> 720bdb3 (resolve rebas conflicts)
 require('dotenv').config()
 
 // הספריה שמטפלת ב env
@@ -8,6 +13,7 @@ require('dotenv').config()
 //שומר סיסמאות/נתונים מוצפנים שלא עולים ב גיט אלא נמצאים בדיסק המקומי
 //config מוציא את הנתונים מהenv
 
+<<<<<<< HEAD
 const { DATA_BASE_PATH = 'C:/data-base-temp' } = process.env
 
 function getAll(model) {
@@ -27,6 +33,25 @@ function getAll(model) {
         else {
             throw Error(`the data in ${filePath} is corrupt`)
         }
+=======
+const {DATA_BASE_PATH='C:/data-base-temp'}=process.env
+
+function getAll(model) {
+    
+    try {
+        const filePath=path.join(DATA_BASE_PATH,`${model}.json`)
+        if(!fs.existsSync(filePath))
+            return []
+        const data=fs.readFileSync(filePath)
+        const list=JSON.parse(list)
+        if(Array.isArray(list)){
+            return list
+        }
+        else{
+            throw Error (`the data in ${filePath} is corrupt`)
+        }
+        
+>>>>>>> 720bdb3 (resolve rebas conflicts)
     }
     catch (err) {
         throw err
@@ -34,6 +59,7 @@ function getAll(model) {
 }
 
 function getByCondition(model, condition) {
+<<<<<<< HEAD
     try {
         if(!condition instanceof Object){
             throw Error ('the condition must be Object')
@@ -49,6 +75,8 @@ function getByCondition(model, condition) {
     catch (error) {
         throw error
     }
+=======
+>>>>>>> 720bdb3 (resolve rebas conflicts)
 
 }
 
