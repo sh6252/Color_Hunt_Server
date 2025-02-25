@@ -10,7 +10,7 @@ function addOne(model, item={}) {
     try {
        
         let collection = getAll(model)
-        if(item==undefined){
+        if(!item){
             throw Error ('item must be defined')
         }
         collection.push(item)

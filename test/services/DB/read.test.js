@@ -7,7 +7,7 @@ const path = require("path")
 
 jest.mock('fs')
 jest.mock('path')
-// jest.mock('Array')
+// jest.mock('JSON')
 
 
 describe('GET ALL', () => {
@@ -44,7 +44,7 @@ describe('GET ALL', () => {
         it('should throw error when the data in the file is not an array', () => {
             //   path.join.mockReturnValue('C:/data-base-temp/test.json')
             //   fs.existsSync.mockReturnValue(true)
-            //   Array.isArray.mockReturnValue(false)
+            // fs.readFileSync.mockReturnValue({name:'shifi'})
             //   expect(()=>getAll('test')).toThrow(`the data in C:/data-base-temp/test.json is corrupt`)
         })
         it('should throw error when the file contains corrupt json data', () => {
@@ -61,7 +61,7 @@ describe('GET ALL', () => {
             expect(()=>getAll('test')).toThrow('error from mock')
         })
         it('shoult throw error when the model is not a string',()=>{
-             //expect(()=>getAll(model)).toThrow('the model must be string')
+             expect(()=>getAll(45)).toThrow('the model must be string')
         })
     })
 })
@@ -94,14 +94,14 @@ describe('GET BY CONDITION',()=>{
     })
     describe('ERROR',()=>{
         it('should throw error when getAll throws error',()=>{
-          // getAll.mockImplementation(()=>{throw Error ('error from mock')})
-           //expect(()=>getByCondition('test',{x:6})).toThrow('error from mock')
+        //   getAll.mockImplementation(()=>{throw Error ('error from mock')})
+        //    expect(()=>getByCondition('test',{x:6})).toThrow('error from mock')
         })
         it('should throw error when model is not a string',()=>{
-            
+            expect(()=>getByCondition(1,{x:6})).toThrow('model must be string')
         })
-        it('should throw error when condition is not an object or undefined',()=>{
-          //  expect(()=>getByCondition('test',123)).toThrow('the condition must be Object')
+        it('should throw error when condition is not an object',()=>{
+           expect(()=>getByCondition('test',123)).toThrow('the condition must be Object')
         })
     })
 })

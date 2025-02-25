@@ -74,7 +74,6 @@ describe('ADD ONE', () => {
         })
         it('should throw error when item is undefined', () => {
             // getAll.mockReturnValue([{ x: 5, y: 7 }])
-
             // expect(()=>addOne('test')).toThrow('item must be defined')
         })
         it('should throw error when model is not a string', () => {
