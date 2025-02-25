@@ -6,7 +6,7 @@ const {HOST="127.0.0.1",PORT=8080}=process.env
 
 
 app.listen(PORT,HOST,()=>{
-    console.log(`the server is running at http://${HOST}:${PORT} `);  
+    console.log(`🙈🙉🙊🐵 the server is running at http://${HOST}:${PORT} 🐵🙊🙉🙈`);  
 })
 
 const server=http.createServer(app)
