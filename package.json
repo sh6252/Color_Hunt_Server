@@ -4,12 +4,20 @@
   "description": "the server of the color hunt project",
   "main": "index.js",
   "scripts": {
+    "start":"node server",
     "test": "jest",
-    "test:covarage":"npm run test -- --coverage"
+    "test:coverage":"npm run test -- --coverage"
   },
   "repository": {
     "type": "git",
     "url": "//gurfs/Users/Tichnut/תכנות ו תשפה/קבוצה ו-2/Shifi Lemberger/NODE/color_hunt/server/.git/"
+  },
+  "dependencies":{
+    "dotenv":"^29.4.7",
+    "express":"^4.21.1"
+  },
+  "devDependencies":{
+    "jest":"^29.7.0"
   },
   "author": "shifi",
   "license": "MIT"
