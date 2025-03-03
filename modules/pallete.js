@@ -46,7 +46,7 @@ function createPallete(pallete) {
         }
         const typeFields = requiredTypeValidation(pallete, model)
         if (typeFields instanceof Array) {
-            throw TypeError(`the following data is not from the require type :${typeFields.join(',')}`)
+            throw TypeError(`the following data is not from the require type: ${typeFields.join(',')}`)
         }
         const { colors } = pallete
         if (colors.length !== 4) {
@@ -62,7 +62,7 @@ function createPallete(pallete) {
         }
         const id = colors.reduce((id, cl) => id += cl instanceof Array ? convertRGBtoHEX(cl) : cl, '')
         const exist = getByCondition(model.name, { id })
-        if (!exist) {
+        if (exist.length===0) {
             pallete.id = id
             addOne(model.name, pallete)
             return pallete
