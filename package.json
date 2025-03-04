@@ -22,5 +22,11 @@
     "nodemon": "^3.1.9"
   },
   "author": "shifi",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
