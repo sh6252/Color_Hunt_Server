@@ -38,6 +38,7 @@ const model = {
     ]
 }
 
+
 function createPallete(pallete) {
     try {
         const requireFields = requiredFieldValidation(pallete, model)

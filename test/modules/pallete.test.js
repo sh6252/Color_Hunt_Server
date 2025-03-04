@@ -1,5 +1,6 @@
 const {createPallete}=require('../../modules/pallete')
 
+
 const {requiredFieldValidation,requiredTypeValidation,modelState}=require('../../services/validations/object')
 const {isHEXColor,isRGBColor}=require('../../services/validations/color')
 const {convertRGBtoHEX}=require('../../services/convert')
@@ -12,6 +13,7 @@ jest.mock('../../services/validations/color')
 jest.mock('../../services/convert')
 jest.mock('../../services/DB/read')
 jest.mock('../../services/DB/write')
+
 
 const model = {
     name: 'pallete',
@@ -45,6 +47,8 @@ const model = {
         }
     ]
 }
+
+
 describe('CREATE PALLETE',()=>{
     afterEach(()=>{
         requiredFieldValidation.mockReset()
@@ -111,6 +115,18 @@ describe('CREATE PALLETE',()=>{
             expect(()=>createPallete({colors:["hghhgn","hduhudh",75,"hhgdh"]},model)).toThrow('one of the colors isnt in the correct format')
             expect(()=>createPallete({colors:["hghhgn","hduhudh",["fg",45,"545"],"hhgdh"]},model)).toThrow('one of the colors isnt in the correct format')
         })
+        it('should throw error when isHEXColor throws error',()=>{
+            requiredFieldValidation.mockReturnValue(true)
+            requiredTypeValidation.mockReturnValue(true)
+            isHEXColor.mockImplementation(()=>{throw Error('error from mock-isHEXColor')})
+            expect(()=>createPallete({colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})).toThrow('error from mock-isHEXColor')
+        })
+        it('should throw error when isRGBColor throws error',()=>{
+            requiredFieldValidation.mockReturnValue(true)
+            requiredTypeValidation.mockReturnValue(true)
+            isHEXColor.mockImplementation(()=>{throw Error('error from mock-isRGBColor')})
+            expect(()=>createPallete({colors:[[670,765,878],'#FFFFFF','#FFFFFF','#FFFFFF']})).toThrow('error from mock-isRGBColor')
+        })
         it('should throw error when the colors contains not RGB or HEX color',()=>{
             requiredFieldValidation.mockReturnValue(true)
             requiredTypeValidation.mockReturnValue(true)
@@ -118,7 +134,15 @@ describe('CREATE PALLETE',()=>{
             expect(()=>createPallete({colors:["#124865",[124,900,254],[124,120,254],[124,120,254]]},model)).toThrow('one of the color values is not a real RGB color')
 
         })
+        it('should throw error when getByCondition throws error',()=>{
+            requiredFieldValidation.mockReturnValue(true)
+            requiredTypeValidation.mockReturnValue(true)
+            isHEXColor.mockReturnValue(true)
+            isRGBColor.mockReturnValue(true)
+            convertRGBtoHEX.mockReturnValue('#FFFFFF')
 
-
+            getByCondition.mockImplementation(()=>{throw Error('error from mock-getByCondition')})
+            expect(()=>createPallete({colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})).toThrow('error from mock-getByCondition')
+        })
     })
 })
