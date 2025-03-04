@@ -41,6 +41,7 @@ const model = {
 
 function createPallete(pallete) {
     try {
+        
         const requireFields = requiredFieldValidation(pallete, model)
         if (requireFields instanceof Array) {
             throw TypeError(`the following data is required: ${requireFields.join(',')}`)
@@ -49,6 +50,7 @@ function createPallete(pallete) {
         if (typeFields instanceof Array) {
             throw TypeError(`the following data is not from the require type: ${typeFields.join(',')}`)
         }
+        if(pallete.colors&&model.fields[2].type(pallete.colors)){
         const { colors } = pallete
         if (colors.length !== 4) {
             throw Error('the pallete needs 4 colors')
@@ -62,14 +64,16 @@ function createPallete(pallete) {
             throw Error('one of the color values is not a real RGB color')
         }
         const id = colors.reduce((id, cl) => id += cl instanceof Array ? convertRGBtoHEX(cl) : cl, '')
-        const exist = getByCondition(model.name, { id })
-        if (exist.length===0) {
+        const exist = getByCondition(model.name, { id })[0]
+        if (!exist) {
             pallete.id = id
             addOne(model.name, pallete)
             return pallete
         }
         return false
     }
+    throw TypeError('colors must be an array')
+}
     catch (error) {
         throw error
     }

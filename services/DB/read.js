@@ -13,7 +13,7 @@ const { DATA_BASE_PATH = 'C:/data-base-temp' } = process.env
 function getAll(model) {
 
     try {
-        if(typeof(model)!='string'){
+        if (typeof (model) != 'string') {
             throw Error('the model must be string')
         }
         const filePath = path.join(DATA_BASE_PATH, `${model}.json`)
@@ -35,10 +35,10 @@ function getAll(model) {
 
 function getByCondition(model, condition) {
     try {
-        if(typeof(model)!=='string')
-            throw TypeError ('model must be string')
-        if( ['number', 'string', 'boolean'].includes(typeof condition)){
-            throw TypeError ('the condition must be Object')
+        if (typeof model !== 'string')
+            throw TypeError('model must be string')
+        if (['number', 'string', 'boolean'].includes(typeof condition)) {
+            throw TypeError('the condition must be Object')
         }
         const collection = getAll(model)
         if (condition) {

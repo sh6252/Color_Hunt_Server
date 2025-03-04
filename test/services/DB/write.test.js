@@ -54,30 +54,29 @@ describe('ADD ONE', () => {
             fs.existsSync.mockReturnValue(true)
             path.join.mockReturnValue(`/folder/${model}.json`)
             fs.writeFileSync.mockImplementation(() => { throw Error('error from mock') })
-            expect(() => addOne('test')).toThrow('error from mock')
+            expect(() => addOne('test',{})).toThrow('error from mock')
         })
         it('should throw error when path.join throws error', () => {
             getAll.mockReturnValue([{ x: 5, y: 7 }])
             fs.existsSync.mockReturnValue(true)
             path.join.mockImplementation(() => { throw Error('error from mock') })
-            expect(() => addOne('test')).toThrow('error from mock')
+            expect(() => addOne('test',{})).toThrow('error from mock')
         })
         it('should throw error when fs.mkdirsync throws error', () => {
             getAll.mockReturnValue([{ x: 5, y: 7 }])
             fs.existsSync.mockReturnValue(false)
             fs.mkdirSync.mockImplementation(() => { throw Error('error from mock') })
-            expect(() => addOne('test')).toThrow('error from mock')
+            expect(() => addOne('test',{})).toThrow('error from mock')
         })
         it('should throw error when getAll throws error', () => {
             getAll.mockImplementation(() => { throw Error('error from mock') })
-            expect(() => addOne('test')).toThrow('error from mock')
+            expect(() => addOne('test',{})).toThrow('error from mock')
         })
         it('should throw error when item is undefined', () => {
-            // getAll.mockReturnValue([{ x: 5, y: 7 }])
-            // expect(()=>addOne('test')).toThrow('item must be defined')
+            expect(()=>addOne('test')).toThrow('item must be defined')
         })
         it('should throw error when model is not a string', () => {
-              
+              expect(()=>addOne(1)).toThrow('model must be string')
         })
     })
 })

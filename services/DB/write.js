@@ -6,13 +6,16 @@ require('dotenv').config()
 const { DATA_BASE_PATH = 'C:/data-base-temp' } = process.env
 
 
-function addOne(model, item={}) {
+function addOne(model, item) {
     try {
-       
+       if(typeof model!=='string'){
+        throw TypeError('model must be string')
+       }
+       if(!item){
+        throw Error ('item must be defined')
+    }
         let collection = getAll(model)
-        if(!item){
-            throw Error ('item must be defined')
-        }
+        
         collection.push(item)
         if (!fs.existsSync(DATA_BASE_PATH)) {
             fs.mkdirSync(DATA_BASE_PATH, { recursive: true })

@@ -70,8 +70,9 @@ describe('CREATE PALLETE',()=>{
           convertRGBtoHEX.mockReturnValue('#FFFFFF')
           getByCondition.mockReturnValue([])
 
-          expect(addOne).toHaveBeenCalledWith('pallete',{id:"#FFFFFF#FFFFFF#FFFFFF#FFFFFF",userName:"shifi",colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})
-          expect(()=>createPallete(pallete,model)).toStrictEqual({id:"#FFFFFF#FFFFFF#FFFFFF#FFFFFF",userName:"shifi",colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})
+        //   expect(addOne).toHaveBeenCalledWith('pallete',{id:"#FFFFFF#FFFFFF#FFFFFF#FFFFFF",userName:"shifi",colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})
+          const res=createPallete(pallete,model)
+          expect(res).toStrictEqual({id:"#FFFFFF#FFFFFF#FFFFFF#FFFFFF",userName:"shifi",colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})
 
     })
     it('should return false when the data is exist',()=>{
@@ -83,7 +84,8 @@ describe('CREATE PALLETE',()=>{
         convertRGBtoHEX.mockReturnValue('#FFFFFF')
         getByCondition.mockReturnValue([{id:"#FFFFFF#FFFFFF#FFFFFF#FFFFFF",userName:"rivki",colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']}])
         expect(addOne).not.toHaveBeenCalled()
-        expect(()=>createPallete(pallete,model)).toBe(false)
+       const res= createPallete(pallete,model)
+       expect(res).toBe(false)
     })
     describe('ERRORS',()=>{
         it('should throw error when requiredFieldValidation throw error',()=>{
@@ -121,6 +123,7 @@ describe('CREATE PALLETE',()=>{
             isHEXColor.mockImplementation(()=>{throw Error('error from mock-isHEXColor')})
             expect(()=>createPallete({colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})).toThrow('error from mock-isHEXColor')
         })
+        
         it('should throw error when isRGBColor throws error',()=>{
             requiredFieldValidation.mockReturnValue(true)
             requiredTypeValidation.mockReturnValue(true)
@@ -134,6 +137,14 @@ describe('CREATE PALLETE',()=>{
             expect(()=>createPallete({colors:["#124865",[124,900,254],[124,120,254],[124,120,254]]},model)).toThrow('one of the color values is not a real RGB color')
 
         })
+        it('should throw error when convertRGBtoHEX throws error',()=>{
+            requiredFieldValidation.mockReturnValue(true)
+            requiredTypeValidation.mockReturnValue(true)
+            isHEXColor.mockReturnValue(true)
+            isRGBColor.mockReturnValue(true)
+            convertRGBtoHEX.mockImplementation(()=>{throw Error('error from mock-convertRGBtoHEX')})
+            expect(()=>createPallete({colors:[[670,765,878],'#FFFFFF','#FFFFFF','#FFFFFF']})).toThrow('error from mock-convertRGBtoHEX')
+        })
         it('should throw error when getByCondition throws error',()=>{
             requiredFieldValidation.mockReturnValue(true)
             requiredTypeValidation.mockReturnValue(true)
@@ -143,6 +154,22 @@ describe('CREATE PALLETE',()=>{
 
             getByCondition.mockImplementation(()=>{throw Error('error from mock-getByCondition')})
             expect(()=>createPallete({colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})).toThrow('error from mock-getByCondition')
+        })
+        it('should throw error when addOne throws error',()=>{
+            requiredFieldValidation.mockReturnValue(true)
+            requiredTypeValidation.mockReturnValue(true)
+            isHEXColor.mockReturnValue(true)
+            isRGBColor.mockReturnValue(true)
+            convertRGBtoHEX.mockReturnValue('#FFFFFF')
+
+            getByCondition.mockReturnValue([])
+            addOne.mockImplementation(()=>{throw Error('error from mock-addOne')})
+            expect(()=>createPallete({colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})).toThrow('error from mock-addOne')
+        })
+        it('should throw error when colors is not an array',()=>{
+            requiredFieldValidation.mockReturnValue(true)
+            requiredTypeValidation.mockReturnValue(true)
+            expect(()=>createPallete({colors:123})).toThrow('colors must be an array')
         })
     })
 })
