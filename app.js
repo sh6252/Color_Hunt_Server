@@ -1,7 +1,11 @@
 const express = require('express')//פונקציות בשביל שהשרת יעבוד
 const palleteRouter=require('./routers/pallete')
+const { startLogger } = require('./utils/middlewares/logger')
 
 const app = express()//בנית אובייקט מהטיפוס
+
+app.use(startLogger)
+
 app.get('/', (req, res) => {
     res.status(200).send('❤️❤️❤️❤️❤️❤️❤️❤️my server!❤️❤️❤️❤️❤️❤️❤️❤️')
 })

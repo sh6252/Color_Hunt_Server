@@ -24,7 +24,7 @@ function requiredFieldValidation(obj, model, state = 'insert') {
         throw Error('model must contain fields')
     if (!validateModel(model))
         throw Error('models fields must be an array with name attribute')
-    const req = model.fields.filter(t => t.require[state])
+    const req = model.fields.filter(t => t.required[state])
     const ans = req.filter(t => !Object.keys(obj).includes(t.name))
     if (ans.length === 0) 
         return true

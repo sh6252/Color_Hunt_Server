@@ -1,5 +1,5 @@
 const { convertRGBtoHEX } = require('../services/convert')
-const { getByCondition } = require('../services/DB/read')
+const { getByCondition, getAll } = require('../services/DB/read')
 const { addOne } = require('../services/DB/write')
 const { isHEXColor, isRGBColor } = require('../services/validations/color')
 const { modelState, requiredFieldValidation, requiredTypeValidation } = require('../services/validations/object')
@@ -40,7 +40,7 @@ const model = {
 
 function createPallete(pallete) {
     try {
-        const requireFields = requiredFieldValidation(pallete, model)
+        const requireFields = requiredFieldValidation(pallete, model,modelState.INSERT)
         if (requireFields instanceof Array) {
             throw TypeError(`the following data is required: ${requireFields.join(',')}`)
         }
@@ -62,7 +62,7 @@ function createPallete(pallete) {
         }
         const id = colors.reduce((id, cl) => id += cl instanceof Array ? convertRGBtoHEX(cl) : cl, '')
         const exist = getByCondition(model.name, { id })
-        if (!exist) {
+        if (exist.length==0) {
             pallete.id = id
             addOne(model.name, pallete)
             return pallete
@@ -73,4 +73,8 @@ function createPallete(pallete) {
         throw error
     }
 }
-module.exports = { createPallete }
+function getAllPalletes({skip,count}){
+   const data=getAll(model.name)
+   return data.slice(skip,count)
+}
+module.exports = { createPallete ,getAllPalletes}
