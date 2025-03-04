@@ -1,9 +1,13 @@
 const express = require('express')//פונקציות בשביל שהשרת יעבוד
+const palleteRouter=require('./routers/pallete')
 
 const app = express()//בנית אובייקט מהטיפוס
 app.get('/', (req, res) => {
     res.status(200).send('❤️❤️❤️❤️❤️❤️❤️❤️my server!❤️❤️❤️❤️❤️❤️❤️❤️')
 })
+
+app.use('/pallete',palleteRouter)
+
 app.get('/colors/:color',(req,res)=>{
     res.status(200).send(`🙈🙉🙊🐵 you selected ${req.params.color} 🐵🙊🙉🙈`)
 })
