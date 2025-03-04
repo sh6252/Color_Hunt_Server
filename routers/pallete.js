@@ -9,6 +9,6 @@ router.get('/all',(req,res)=>{
 
 router.post('/create',express.json(),(req,res)=>{
     const {colors}=req.body
-    res.status(201).json({...req.body,id:1}) 
+    res.status(201).json({...colors,id:1}) 
 })
 module.exports=router
