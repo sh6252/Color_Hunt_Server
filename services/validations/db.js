@@ -1,8 +1,8 @@
 function dataContainValue(data, value, prop) {
     if(!data)
         throw TypeError('data must be defined')
-    // if(!value)
-    //     throw TypeError('value must be defined')
+    //     if(!value)
+    // throw TypeError('value must be defined')
     if (!(data instanceof Array)) 
         throw TypeError('data must be instanceof array')
 

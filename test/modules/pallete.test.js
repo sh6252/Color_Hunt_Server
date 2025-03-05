@@ -1,10 +1,10 @@
-const {createPallete}=require('../../modules/pallete')
+const {createPallete, getAllPalletes}=require('../../modules/pallete')
 
 
 const {requiredFieldValidation,requiredTypeValidation,modelState}=require('../../services/validations/object')
 const {isHEXColor,isRGBColor}=require('../../services/validations/color')
 const {convertRGBtoHEX}=require('../../services/convert')
-const {getByCondition}=require('../../services/DB/read')
+const {getByCondition,getAll}=require('../../services/DB/read')
 const {addOne}=require('../../services/DB/write')
 
 
@@ -170,6 +170,26 @@ describe('CREATE PALLETE',()=>{
             requiredFieldValidation.mockReturnValue(true)
             requiredTypeValidation.mockReturnValue(true)
             expect(()=>createPallete({colors:123})).toThrow('colors must be an array')
+        })
+    })
+})
+describe('GET ALL PALLETES',()=>{
+    it('should return array with count items from the database from skip',()=>{
+        getAll.mockReturnValue([{x:2,y:9},{x:4,y:3},{x:9,y:1},{x:7,y:0}])
+        const res=getAllPalletes({skip:0,count:2})
+        expect(res).toBeInstanceOf(Array)
+        expect(res).toEqual([{x:2,y:9},{x:4,y:3}])
+    })
+    describe('ERRORS',()=>{
+        it('should throw error when skip is NaN',()=>{
+            expect(()=>getAllPalletes({skip:{x:3},count:4})).toThrow('skip must be number')
+        })
+        it('should throw error when count is NaN',()=>{
+            expect(()=>getAllPalletes({skip:3,count:'hello'})).toThrow('count must be number')
+        })
+        it('should throw error when getAll throws error', () => {
+            getAll.mockImplementation(() => { throw Error('error from mock-getAll') })
+            expect(() => getAllPalletes({skip:0,count:2})).toThrow('error from mock-getAll')
         })
     })
 })

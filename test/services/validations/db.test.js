@@ -31,7 +31,7 @@ describe('DATA CONTAINS VALUE', () => {
            expect(()=>dataContainValue()).toThrow('data must be defined')
         })
         // it('should throw error when value is undefined', () => {
-        //     expect(dataContainValue(['ghej'])).toThrow('value must be defined')
+        //     expect(()=>dataContainValue(['ghej'])).toThrow('value must be defined')
         //  })
 
         it('should throw error when data is not an array of values', () => {

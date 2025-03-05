@@ -33,10 +33,18 @@ function getAll(model) {
     }
 }
 
+
+
+
 function getByCondition(model, condition) {
+    try{
+        getAll(model)
+    }
+    catch(error){
+        throw Error('get all throw error')
+    }
     try {
-        if (typeof model !== 'string')
-            throw TypeError('model must be string')
+        
         if (['number', 'string', 'boolean'].includes(typeof condition)) {
             throw TypeError('the condition must be Object')
         }

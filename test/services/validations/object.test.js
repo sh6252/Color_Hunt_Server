@@ -4,33 +4,33 @@ const { requiredFieldValidation,
 const testModel = {
     name: 'test',
     fields: [{
-        name: 'id', require: {
+        name: 'id', required: {
             [modelState.INSERT]: false,
             [modelState.UPDATE]: true,
             [modelState.DELETE]: true
         }, type: 'string'
     }, {
-        name: 'name', require: {
+        name: 'name', required: {
             [modelState.INSERT]: true,
             [modelState.UPDATE]: false,
             [modelState.DELETE]: false
         }, type: 'string'
     }, 
     {
-        name: 'count', require: {
+        name: 'count', required: {
             [modelState.INSERT]: true,
             [modelState.UPDATE]: false,
             [modelState.DELETE]: false
         }, type: 'number'
     },{
 
-        name: 'code', require: {
+        name: 'code', required: {
             [modelState.INSERT]: true,
             [modelState.UPDATE]: false,
             [modelState.DELETE]: false
         }, type: (val)=>typeof val==='number'||(!isNaN(val)&&typeof val==='string')
     }, {
-        name: 'items', require: {
+        name: 'items', required: {
             [modelState.INSERT]: true,
             [modelState.UPDATE]: false,
             [modelState.DELETE]: false

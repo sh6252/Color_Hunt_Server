@@ -42,19 +42,21 @@ describe('GET ALL', () => {
     describe('ERRORS', () => {
 
         it('should throw error when the data in the file is not an array', () => {
-            // path.join.mockReturnValue('C:/data-base-temp/test.json')
-            // fs.existsSync.mockReturnValue(true)
-            // fs.readFileSync.mockReturnValue("hello")
+            const modelname = 'test'
+            fs.existsSync.mockReturnValue(true)
+            fs.readFileSync.mockReturnValue(JSON.stringify({ id: 2, name: 'test' }))
+            path.join.mockReturnValue(`/folder/${modelname}.json`)
 
-            // const res=getAll('test')
-            // expect(res).toThrow('the data in C:/data-base-temp/test.json is corrupt')
+            expect(() => getAll(modelname).toThrow(`the data in /folder/${modelname}.json is corrupt`))
+
         })
         it('should throw error when the file contains corrupt json data', () => {
-            // path.join.mockReturnValue('C:/data-base-temp/test.json')
-            //     fs.existsSync.mockReturnValue(true)
-            //     fs.readFileSync.mockReturnValue({ name: 'shifi'} )
-            //     const res=getAll('test')
-            // expect(res).toThrow(`the data in C:/data-base-temp/test.json is corrupt`)
+            const modelname = 'test'
+            path.join.mockReturnValue(`/folder/${modelname}.json`)
+                fs.existsSync.mockReturnValue(true)
+                fs.readFileSync.mockReturnValue(JSON.stringify("hello") )
+               
+            expect(()=>getAll(modelname)).toThrow(`the data in /folder/${modelname}.json is corrupt`)
         })
         it('should throw error when path.join throws error', () => {
             path.join.mockImplementation(() => { throw Error('error from mock') })
@@ -101,10 +103,7 @@ describe('GET BY CONDITION', () => {
     describe('ERROR', () => {
         it('should throw error when getAll throws error', () => {
              
-            //    expect(()=>getByCondition('test',{x:6})).toThrow('get all throw error')
-        })
-        it('should throw error when model is not a string', () => {
-            expect(() => getByCondition(1, { x: 6 })).toThrow('model must be string')
+               expect(()=>getByCondition(65675,{x:6})).toThrow('get all throw error')
         })
         it('should throw error when condition is not an object', () => {
             expect(() => getByCondition('test', 123)).toThrow('the condition must be Object')

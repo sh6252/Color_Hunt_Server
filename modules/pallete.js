@@ -41,12 +41,8 @@ const model = {
 
 function createPallete(pallete) {
     try {
-<<<<<<< HEAD
-        const requireFields = requiredFieldValidation(pallete, model,modelState.INSERT)
-=======
         
         const requireFields = requiredFieldValidation(pallete, model)
->>>>>>> pallete-tests
         if (requireFields instanceof Array) {
             throw TypeError(`the following data is required: ${requireFields.join(',')}`)
         }
@@ -83,6 +79,11 @@ function createPallete(pallete) {
     }
 }
 function getAllPalletes({skip,count}){
+    if(isNaN(skip))
+        throw TypeError('skip must be number')
+    if(isNaN(count)){
+        throw TypeError('count must be number')
+    }
    const data=getAll(model.name)
    return data.slice(skip,count)
 }
