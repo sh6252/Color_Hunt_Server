@@ -70,7 +70,7 @@ describe('CREATE PALLETE',()=>{
           convertRGBtoHEX.mockReturnValue('#FFFFFF')
           getByCondition.mockReturnValue([])
 
-        //   expect(addOne).toHaveBeenCalledWith('pallete',{id:"#FFFFFF#FFFFFF#FFFFFF#FFFFFF",userName:"shifi",colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})
+        //   expect(addOne).toHaveBeenCalledWith('pallete',{colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF'],id:"#FFFFFF#FFFFFF#FFFFFF#FFFFFF",userName:"shifi"})
           const res=createPallete(pallete,model)
           expect(res).toStrictEqual({id:"#FFFFFF#FFFFFF#FFFFFF#FFFFFF",userName:"shifi",colors:['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']})
 
