@@ -12,5 +12,11 @@
     "url": "//gurfs/Users/Tichnut/תכנות ו תשפה/קבוצה ו-2/Shifi Lemberger/NODE/color_hunt/server/.git/"
   },
   "author": "shifi",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
